@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Models\SerializeDateToIso8001;
 use App\Traits\Models\UuidGenerate;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CastMember extends Model
 {
-    use HasFactory, Filterable, SoftDeletes, UuidGenerate;
+    use HasFactory, Filterable, SoftDeletes, UuidGenerate, SerializeDateToIso8001;
 
     const TYPE_DIRECTOR = 1;
     const TYPE_ACTOR = 2;

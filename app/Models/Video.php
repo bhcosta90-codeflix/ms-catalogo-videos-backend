@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\ModelFilters\VideoFilter;
+use App\Traits\Models\SerializeDateToIso8001;
 use App\Traits\Models\UploadFile;
 use App\Traits\Models\UuidGenerate;
 use EloquentFilter\Filterable;
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class Video extends Model
 {
-    use HasFactory, Filterable, SoftDeletes, UuidGenerate, UploadFile;
+    use HasFactory, Filterable, SoftDeletes, UuidGenerate, UploadFile, SerializeDateToIso8001;
 
     const THUMB_FILE_MAX_SIZE = 1024 * 5; #5MB
     const BANNER_FILE_MAX_SIZE = 1024 * 10; #10MB

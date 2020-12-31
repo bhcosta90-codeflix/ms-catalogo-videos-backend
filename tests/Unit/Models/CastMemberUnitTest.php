@@ -3,6 +3,7 @@
 namespace Tests\Unit\Models;
 
 use App\Models\CastMember as Model;
+use App\Traits\Models\SerializeDateToIso8001;
 use PHPUnit\Framework\TestCase;
 
 class CastMemberUnitTest extends TestCase
@@ -28,6 +29,7 @@ class CastMemberUnitTest extends TestCase
         $traitCompare = [
             \Illuminate\Database\Eloquent\SoftDeletes::class,
             \App\Traits\Models\UuidGenerate::class,
+            \App\Traits\Models\SerializeDateToIso8001::class,
             \Illuminate\Database\Eloquent\Factories\HasFactory::class,
             \EloquentFilter\Filterable::class,
         ];

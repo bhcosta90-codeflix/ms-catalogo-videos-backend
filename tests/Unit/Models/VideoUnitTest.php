@@ -39,6 +39,7 @@ class VideoUnitTest extends TestCase
         $traitCompare = [
             \EloquentFilter\Filterable::class,
             \Illuminate\Database\Eloquent\Factories\HasFactory::class,
+            \App\Traits\Models\SerializeDateToIso8001::class,
             \Illuminate\Database\Eloquent\SoftDeletes::class,
             \App\Traits\Models\UuidGenerate::class,
             \App\Traits\Models\UploadFile::class

@@ -28,6 +28,7 @@ class GenreUnitTest extends TestCase
         $traitCompare = [
             \Illuminate\Database\Eloquent\Factories\HasFactory::class,
             \Illuminate\Database\Eloquent\SoftDeletes::class,
+            \App\Traits\Models\SerializeDateToIso8001::class,
             \App\Traits\Models\UuidGenerate::class,
             \EloquentFilter\Filterable::class,
         ];

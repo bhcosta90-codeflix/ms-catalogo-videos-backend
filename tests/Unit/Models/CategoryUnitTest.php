@@ -27,6 +27,7 @@ class CategoryUnitTest extends TestCase
         $traitClass = array_keys(class_uses($this->model));
         $traitCompare = [
             \EloquentFilter\Filterable::class,
+            \App\Traits\Models\SerializeDateToIso8001::class,
             \Illuminate\Database\Eloquent\Factories\HasFactory::class,
             \Illuminate\Database\Eloquent\SoftDeletes::class,
             \App\Traits\Models\UuidGenerate::class,
