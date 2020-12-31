@@ -21,7 +21,7 @@ services:
       - ms_catalogo_videos_mysql
       - ms_catalogo_videos_redis
 
-  ms_catalogo_videos_app:
+  ms_catalogo_videos_backend:
     build:
       context: ./runtimes/7.4
       dockerfile: Dockerfile
