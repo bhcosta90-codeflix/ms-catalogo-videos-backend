@@ -1,0 +1,91 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+  ms_catalogo_videos_cron:
+    build:
+      context: ./runtimes/7.4
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP}'
+    image: ms_catalogo_videos/cron
+    environment:
+      WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+    volumes:
+      - '.:/var/www/html'
+      - './supervisord:/etc/supervisor/conf.d/'
+    networks:
+      - ms_catalogo_videos
+      - inte-rabbitmq_codeflix_rabbitmq
+    depends_on:
+      - ms_catalogo_videos_mysql
+      - ms_catalogo_videos_redis
+
+  ms_catalogo_videos_app:
+    build:
+      context: ./runtimes/7.4
+      dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP}'
+    image: ms_catalogo_videos/backend
+    ports:
+      - '${APP_PORT:-80}:80'
+    environment:
+      WWWUSER: '${WWWUSER}'
+      LARAVEL_SAIL: 1
+    volumes:
+      - '.:/var/www/html'
+    networks:
+      - ms_catalogo_videos
+      - inte-rabbitmq_codeflix_rabbitmq
+    depends_on:
+      - ms_catalogo_videos_mysql
+      - ms_catalogo_videos_redis
+
+  # selenium:
+  #     image: 'selenium/standalone-chrome'
+  #     volumes:
+  #         - '/dev/shm:/dev/shm'
+  #     networks:
+  #         - ms_catalogo_videos
+  #     depends_on:
+  #         - laravel.test
+  ms_catalogo_videos_mysql:
+    image: 'mysql:8.0'
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    volumes:
+      - 'ms_catalogo_videos_mysql:/var/lib/mysql'
+    networks:
+      - ms_catalogo_videos
+  ms_catalogo_videos_redis:
+    image: 'redis:alpine'
+    ports:
+      - '${FORWARD_REDIS_PORT:-6379}:6379'
+    volumes:
+      - 'ms_catalogo_videos_redis:/data'
+    networks:
+      - ms_catalogo_videos
+  # memcached:
+  #     image: 'memcached:alpine'
+  #     ports:
+  #         - '11211:11211'
+  #     networks:
+  #         - ms_catalogo_videos
+networks:
+  ms_catalogo_videos:
+    driver: bridge
+  inte-rabbitmq_codeflix_rabbitmq:
+    external: true
+
+volumes:
+  ms_catalogo_videos_mysql:
+    driver: local
+  ms_catalogo_videos_redis:
+    driver: local
