@@ -31,6 +31,7 @@ class GenreUnitTest extends TestCase
             \App\Traits\Models\SerializeDateToIso8001::class,
             \App\Traits\Models\UuidGenerate::class,
             \EloquentFilter\Filterable::class,
+            \Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents::class,
         ];
 
         $this->assertEqualsCanonicalizing($traitCompare, $traitClass);

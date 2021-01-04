@@ -6,6 +6,7 @@ use App\ModelFilters\VideoFilter;
 use App\Traits\Models\SerializeDateToIso8001;
 use App\Traits\Models\UploadFile;
 use App\Traits\Models\UuidGenerate;
+use Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents;
 use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class Video extends Model
 {
-    use HasFactory, Filterable, SoftDeletes, UuidGenerate, UploadFile, SerializeDateToIso8001;
+    use HasFactory, Filterable, SoftDeletes, UuidGenerate, UploadFile, SerializeDateToIso8001, HasBelongsToManyEvents;
 
     const THUMB_FILE_MAX_SIZE = 1024 * 5; #5MB
     const BANNER_FILE_MAX_SIZE = 1024 * 10; #10MB
@@ -23,6 +24,11 @@ class Video extends Model
     const VIDEO_FILE_MAX_SIZE = 1024 * 1024 * 50; #50GB
 
     const RATING_LIST = ['L', '10', '12', '14', '16', '18'];
+
+    protected $observables = [
+        'belongsToManyAttached',
+        'belongsToManyDetached',
+    ];
 
     protected $fillable = [
         'title',

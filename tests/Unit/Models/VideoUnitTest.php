@@ -42,7 +42,8 @@ class VideoUnitTest extends TestCase
             \App\Traits\Models\SerializeDateToIso8001::class,
             \Illuminate\Database\Eloquent\SoftDeletes::class,
             \App\Traits\Models\UuidGenerate::class,
-            \App\Traits\Models\UploadFile::class
+            \App\Traits\Models\UploadFile::class,
+            \Chelout\RelationshipEvents\Concerns\HasBelongsToManyEvents::class,
         ];
 
         $this->assertEqualsCanonicalizing($traitCompare, $traitClass);
