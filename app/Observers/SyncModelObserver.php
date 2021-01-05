@@ -154,6 +154,9 @@ class SyncModelObserver
 
     protected function publish(string $routingKey, array $data)
     {
+        if(app()->environment('testing')){
+            return;
+        }
         dispatch(new SyncModelJob($routingKey, $data));
     }
 
