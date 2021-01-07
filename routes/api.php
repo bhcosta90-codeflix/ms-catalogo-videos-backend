@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['as' => 'api.'], function(){
+Route::group(['as' => 'api.', 'middleware' => 'auth:api'], function(){
     Route::resource('/categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('/genres', \App\Http\Controllers\GenreController::class);
     Route::resource('/cast-members', \App\Http\Controllers\CastMemberController::class);

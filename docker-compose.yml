@@ -41,6 +41,8 @@ services:
     depends_on:
       - ms_catalogo_videos_mysql
       - ms_catalogo_videos_redis
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
 
   # selenium:
   #     image: 'selenium/standalone-chrome'

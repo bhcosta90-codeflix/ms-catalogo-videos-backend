@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Traits\Api;
 
+use App\Models\User;
 use Illuminate\Testing\TestResponse;
 
 /**
